@@ -27,9 +27,6 @@ const PhonebookForm = ({
   //   setId
   // );
 
-  // old code
-
-
   const [showMessage, setShowMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
@@ -77,12 +74,12 @@ const PhonebookForm = ({
             console.log("Updated person:", data);
             setPersons((prevPersons) =>
               prevPersons.map((person) =>
-                person.id === nameExists.id ? data : person
+                person.id === nameExists.id ? data : person // update persons array
               )
             );
             setFilteredPersons((prevFilteredPersons) =>
               prevFilteredPersons.map((person) =>
-                person.id === nameExists.id ? data : person
+                person.id === nameExists.id ? data : person // update filtered persons array
               )
             );
             setNewName("");
@@ -97,11 +94,13 @@ const PhonebookForm = ({
             setTimeout(() => {
               setErrorMessage(false);
               setPersons((prevPersons) =>
-              prevPersons.filter((person) => person.id !== nameExists.id)
-            );
-            setFilteredPersons((prevFilteredPersons) =>
-              prevFilteredPersons.filter((person) => person.id !== nameExists.id)
-            );
+                prevPersons.filter((person) => person.id !== nameExists.id)
+              );
+              setFilteredPersons((prevFilteredPersons) =>
+                prevFilteredPersons.filter(
+                  (person) => person.id !== nameExists.id
+                )
+              );
             }, 3000);
             setShowMessage(false);
           });
@@ -128,8 +127,6 @@ const PhonebookForm = ({
         });
     }
   };
-
-
 
   return (
     <form onSubmit={handleFormSubmit}>

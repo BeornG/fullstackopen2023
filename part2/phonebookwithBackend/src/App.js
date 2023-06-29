@@ -14,7 +14,6 @@ const App = () => {
     Math.max(...persons.map((person) => person.id)) + 1
   ); // get max id value from persons array and add 1
 
-
   useEffect(() => {
     personService.get("http://localhost:3001/persons").then((data) => {
       setPersons(data);
@@ -22,16 +21,8 @@ const App = () => {
     });
   }, []);
 
-  console.log(
-    "App component persons state value:",
-    persons
-  );
-  console.log(
-    "App component filteredPersons state value:",
-    filteredPersons
-  );
-
-
+  console.log("App component persons state value:", persons);
+  console.log("App component filteredPersons state value:", filteredPersons);
 
   return (
     <div>
@@ -51,7 +42,7 @@ const App = () => {
         setId={setId}
       />
       <h2>Numbers</h2>
-      <PersonList  persons={filteredPersons} />
+      <PersonList persons={filteredPersons} />
     </div>
   );
 };
