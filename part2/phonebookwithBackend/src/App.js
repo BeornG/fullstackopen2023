@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import personService from "./services/person";
 import Filter from "./components/Filter";
 import PhonebookForm from "./components/PhonebookForm";
 import PersonList from "./components/PersonList";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "040-123456", id: 1 },
-    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
-    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
-    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [filteredPersons, setFilteredPersons] = useState(persons);
 
   const [newName, setNewName] = useState("");
@@ -17,6 +13,25 @@ const App = () => {
   const [id, setId] = useState(
     Math.max(...persons.map((person) => person.id)) + 1
   ); // get max id value from persons array and add 1
+
+
+  useEffect(() => {
+    personService.get("http://localhost:3001/persons").then((data) => {
+      setPersons(data);
+      setFilteredPersons(data);
+    });
+  }, []);
+
+  console.log(
+    "App component persons state value:",
+    persons
+  );
+  console.log(
+    "App component filteredPersons state value:",
+    filteredPersons
+  );
+
+
 
   return (
     <div>
@@ -36,7 +51,7 @@ const App = () => {
         setId={setId}
       />
       <h2>Numbers</h2>
-      <PersonList key={filteredPersons.length} persons={filteredPersons} setPersons={setFilteredPersons} />
+      <PersonList  persons={filteredPersons} />
     </div>
   );
 };
